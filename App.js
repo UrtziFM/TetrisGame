@@ -6,3 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const width = 10;
 
 })
+
+//function showAlert(name) {
+//    alert(name +  'Hello')
+//}
+
+//showAlert('Urtzi,');
+
+let names = ['Jon', 'Mikel', 'Zigor'];
+names.forEach(name => {
+    console.log(name + ' is my best friend');
+})
+
