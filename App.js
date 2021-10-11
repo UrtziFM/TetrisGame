@@ -67,6 +67,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function control(e){
         if(e.keyCode === 37){
             moveLeft();
+        } else if(e.keyCode === 38){
+            rotate();
+        } else if(e.keyCode === 39){
+            moveRight();
+        } else if(e.keyCode === 40){
+            moveDown();
         }
     }
     document.addEventListener('keyup', control);
@@ -77,6 +83,45 @@ document.addEventListener('DOMContentLoaded', () => {
         currentPosition  += width;
         draw();
         freeze();
+    }
+
+    // move the tetromino left unless there is at the edge or another one
+    function moveLeft() {
+        undraw();
+        const isAtLeftEdge =  current.some(index => (currentPosition + index) % width === 0);
+
+        if(!isAtLeftEdge) {
+            currentPosition -= 1
+        }
+        if(current.some(index =>  squares[currentPosition + index].classList.contains('taken'))) {
+            currentPosition += 1;
+        }
+        draw()   
+    }
+
+    // move the tetromino right unless there is at the edge or another one
+    function moveRight() {
+        undraw();
+        const isAtRightEdge =  current.some(index => (currentPosition + index) % width === width - 1);
+
+        if(!isAtRightEdge) {
+            currentPosition += 1
+        }
+        if(current.some(index =>  squares[currentPosition + index].classList.contains('taken'))) {
+            currentPosition -= 1;
+        }
+        draw();   
+    }
+    
+    // rotate the tetromino
+    function rotate() {
+        undraw();
+        currentRotation ++;
+        if(currentRotation === current.length) {  // if the tetromino is rotated 4 times go back to initial position
+            currentRotation = 0;
+        } 
+        current  = theTetrominoes[random][currentRotation];
+        draw();
     }
 
     //freeze function
@@ -91,19 +136,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // move the tetromino left unless there is at the edge or another one
-    function moveLeft() {
-        undraw();
-        const isAtLeftEdge =  current.some(index => (currentPosition + index) % width === 0);
+    // show up the next tetromino in the mini-grid display
+    const displaySquares = document.querySelectorAll('.mini-grid div')
+    const displayWidth = 4;
+    let displayIndex = 0;
 
-        if(!isAtLeftEdge) currentPosition -= 1
-
-        if(current.some(index =>  squares[currentPosition + index].classList.contains('taken'))) {
-            currentPosition += 1;
-        }
-        draw()   
-    }
-
+    
 })
 
 //function showAlert(name) {
