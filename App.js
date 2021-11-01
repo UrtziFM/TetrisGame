@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let squares =  Array.from(document.querySelectorAll('.grid div'));
     const scoreDisplay =  document.querySelector('#score');
     const startBtn  = document.querySelector('#start-button');
+    const reStart = document.querySelector('#reStart')
     const width = 10;
     let nextRandom = 0;
     let timerID;
@@ -244,6 +245,11 @@ document.addEventListener('DOMContentLoaded', () => {
             clearInterval(timerID);
         }
     }
+
+    // reStart button
+    reStart.addEventListener('click', () => {
+        location.reload();
+    })
     
 })
 
